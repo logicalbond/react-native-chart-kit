@@ -70,7 +70,23 @@ class PieChart extends AbstractChart<PieChartProps, PieChartState> {
 
       return (
         <G key={Math.random()}>
-          <Path d={c.sector.path.print()} fill={c.item.color} />
+          <Path
+            d={c.sector.path.print()}
+            fill={c.item.color}
+            stroke={c.item.color}
+          />
+          <Text
+            textAnchor="start"
+            transform={
+              "translate(" +
+              c.sector.centroid[0] +
+              "," +
+              c.sector.centroid[1] +
+              ")"
+            }
+          >
+            {value.replace("%", "")}
+          </Text>
           {hasLegend ? (
             <Rect
               width="16px"
