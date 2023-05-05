@@ -109,7 +109,9 @@ class ProgressChart extends AbstractChart<
                 fill={
                   this.props.withCustomBarColorFromData
                     ? withColor(i)
-                    : this.props.chartConfig.color(0.2 * (i + 1), i)
+                    : strokeColor
+                    ? strokeColor(0.7 * (i + 1), i)
+                    : this.props.chartConfig.color(0.7 * (i + 1), i)
                 }
                 rx={8}
                 ry={8}
@@ -170,13 +172,15 @@ class ProgressChart extends AbstractChart<
             height: this.props.height,
             ...this.props.chartConfig
           })}
-          <Rect
-            width="100%"
-            height={this.props.height}
-            rx={borderRadius}
-            ry={borderRadius}
-            fill="url(#backgroundGradient)"
-          />
+          {this.props.chartConfig.useBackgroundCanvas && (
+            <Rect
+              width="100%"
+              height={this.props.height}
+              rx={borderRadius}
+              ry={borderRadius}
+              fill="url(#backgroundGradient)"
+            />
+          )}
           <G
             x={this.props.width / (hideLegend ? 2 : 2.5)}
             y={this.props.height / 2}
@@ -206,9 +210,9 @@ class ProgressChart extends AbstractChart<
                       this.props.withCustomBarColorFromData
                         ? withColor(i)
                         : strokeColor
-                        ? strokeColor((i / pies.length) * 0.5 + 0.5, i)
+                        ? strokeColor((i / pies.length) * 0.7 + 0.5, i)
                         : this.props.chartConfig.color(
-                            (i / pies.length) * 0.5 + 0.5,
+                            (i / pies.length) * 0.7 + 0.5,
                             i
                           )
                     }

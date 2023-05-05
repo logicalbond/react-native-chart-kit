@@ -239,13 +239,15 @@ class StackedBarChart extends AbstractChart<
             ...config,
             ...this.props.chartConfig
           })}
-          <Rect
-            width="100%"
-            height={height}
-            rx={borderRadius}
-            ry={borderRadius}
-            fill="url(#backgroundGradient)"
-          />
+          {this.props.chartConfig.useBackgroundCanvas && (
+            <Rect
+              width="100%"
+              height={height}
+              rx={borderRadius}
+              ry={borderRadius}
+              fill="url(#backgroundGradient)"
+            />
+          )}
           <G>
             {this.renderHorizontalLines({
               ...config,

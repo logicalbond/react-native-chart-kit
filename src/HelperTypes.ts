@@ -88,6 +88,10 @@ export interface ChartConfig {
    */
   useShadowColorFromDataset?: boolean;
   /**
+   * Defines the option to use color from dataset to each chart data
+   */
+  useBackgroundCanvas?: boolean;
+  /**
    * Defines the base color function that is used to calculate colors of labels and sectors used in a chart
    */
   color?: (opacity: number, index?: number) => string;

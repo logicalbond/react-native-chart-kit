@@ -265,13 +265,15 @@ class BarChart extends AbstractChart<BarChartProps, BarChartState> {
             flatColor: flatColor,
             data: this.props.data.datasets
           })}
-          <Rect
-            width="100%"
-            height={height}
-            rx={borderRadius}
-            ry={borderRadius}
-            fill="url(#backgroundGradient)"
-          />
+          {this.props.chartConfig.useBackgroundCanvas && (
+            <Rect
+              width="100%"
+              height={height}
+              rx={borderRadius}
+              ry={borderRadius}
+              fill="url(#backgroundGradient)"
+            />
+          )}
           <G>
             {withInnerLines
               ? this.renderHorizontalLines({
@@ -297,7 +299,9 @@ class BarChart extends AbstractChart<BarChartProps, BarChartState> {
               ? this.renderVerticalLabels({
                   ...config,
                   labels: data.labels,
-                  paddingRight: paddingRight as number,
+                  paddingRight: withHorizontalLabels
+                    ? (paddingRight as number)
+                    : (paddingRight as number) / 3,
                   paddingTop: paddingTop as number,
                   horizontalOffset: barWidth * this.getBarPercentage()
                 })
@@ -308,7 +312,9 @@ class BarChart extends AbstractChart<BarChartProps, BarChartState> {
               ...config,
               data: data.datasets[0].data,
               paddingTop: paddingTop as number,
-              paddingRight: paddingRight as number,
+              paddingRight: withHorizontalLabels
+                ? (paddingRight as number)
+                : (paddingRight as number) / 3,
               withCustomBarColorFromData: withCustomBarColorFromData
             })}
           </G>
@@ -318,7 +324,9 @@ class BarChart extends AbstractChart<BarChartProps, BarChartState> {
                 ...config,
                 data: data.datasets[0].data,
                 paddingTop: paddingTop as number,
-                paddingRight: paddingRight as number
+                paddingRight: withHorizontalLabels
+                  ? (paddingRight as number)
+                  : (paddingRight as number) / 3
               })}
           </G>
           <G>
@@ -327,7 +335,9 @@ class BarChart extends AbstractChart<BarChartProps, BarChartState> {
                 ...config,
                 data: data.datasets[0].data,
                 paddingTop: paddingTop as number,
-                paddingRight: paddingRight as number
+                paddingRight: withHorizontalLabels
+                  ? (paddingRight as number)
+                  : (paddingRight as number) / 3
               })}
           </G>
         </Svg>

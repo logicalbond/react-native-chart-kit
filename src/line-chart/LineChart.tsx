@@ -851,14 +851,16 @@ class LineChart extends AbstractChart<LineChartProps, LineChartState> {
           height={height + (paddingBottom as number) + legendOffset}
           width={width - (margin as number) * 2 - (marginRight as number)}
         >
-          <Rect
-            width="100%"
-            height={height + legendOffset}
-            rx={borderRadius}
-            ry={borderRadius}
-            fill="url(#backgroundGradient)"
-            fillOpacity={transparent ? 0 : 1}
-          />
+          {this.props.chartConfig.useBackgroundCanvas && (
+            <Rect
+              width="100%"
+              height={height + legendOffset}
+              rx={borderRadius}
+              ry={borderRadius}
+              fill="url(#backgroundGradient)"
+              fillOpacity={transparent ? 0 : 1}
+            />
+          )}
           {this.props.data.legend &&
             this.renderLegend(config.width, legendOffset)}
           <G x="0" y={legendOffset}>
@@ -874,13 +876,17 @@ class LineChart extends AbstractChart<LineChartProps, LineChartState> {
                       ...config,
                       count: count,
                       paddingTop,
-                      paddingRight
+                      paddingRight: withHorizontalLabels
+                        ? (paddingRight as number)
+                        : (paddingRight as number) / 2
                     })
                   : withOuterLines
                   ? this.renderHorizontalLine({
                       ...config,
                       paddingTop,
-                      paddingRight
+                      paddingRight: withHorizontalLabels
+                        ? (paddingRight as number)
+                        : (paddingRight as number) / 2
                     })
                   : null)}
             </G>
@@ -903,13 +909,17 @@ class LineChart extends AbstractChart<LineChartProps, LineChartState> {
                       ...config,
                       data: data.datasets[0].data,
                       paddingTop: paddingTop as number,
-                      paddingRight: paddingRight as number
+                      paddingRight: withHorizontalLabels
+                        ? (paddingRight as number)
+                        : (paddingRight as number) / 2
                     })
                   : withOuterLines
                   ? this.renderVerticalLine({
                       ...config,
                       paddingTop: paddingTop as number,
-                      paddingRight: paddingRight as number
+                      paddingRight: withHorizontalLabels
+                        ? (paddingRight as number)
+                        : (paddingRight as number) / 2
                     })
                   : null)}
             </G>
@@ -919,7 +929,9 @@ class LineChart extends AbstractChart<LineChartProps, LineChartState> {
                   ...config,
                   labels,
                   paddingTop: paddingTop as number,
-                  paddingRight: paddingRight as number,
+                  paddingRight: withHorizontalLabels
+                    ? (paddingRight as number)
+                    : (paddingRight as number) / 2,
                   formatXLabel
                 })}
             </G>
@@ -927,7 +939,9 @@ class LineChart extends AbstractChart<LineChartProps, LineChartState> {
               {this.renderLine({
                 ...config,
                 ...chartConfig,
-                paddingRight: paddingRight as number,
+                paddingRight: withHorizontalLabels
+                  ? (paddingRight as number)
+                  : (paddingRight as number) / 2,
                 paddingTop: paddingTop as number,
                 data: data.datasets
               })}
@@ -937,7 +951,9 @@ class LineChart extends AbstractChart<LineChartProps, LineChartState> {
                 this.renderShadow({
                   ...config,
                   data: data.datasets,
-                  paddingRight: paddingRight as number,
+                  paddingRight: withHorizontalLabels
+                    ? (paddingRight as number)
+                    : (paddingRight as number) / 2,
                   paddingTop: paddingTop as number,
                   useColorFromDataset: chartConfig.useShadowColorFromDataset
                 })}
@@ -948,7 +964,9 @@ class LineChart extends AbstractChart<LineChartProps, LineChartState> {
                   ...config,
                   data: data.datasets,
                   paddingTop: paddingTop as number,
-                  paddingRight: paddingRight as number,
+                  paddingRight: withHorizontalLabels
+                    ? (paddingRight as number)
+                    : (paddingRight as number) / 2,
                   onDataPointClick
                 })}
             </G>
@@ -959,7 +977,9 @@ class LineChart extends AbstractChart<LineChartProps, LineChartState> {
                   ...chartConfig,
                   data: data.datasets,
                   paddingTop: paddingTop as number,
-                  paddingRight: paddingRight as number,
+                  paddingRight: withHorizontalLabels
+                    ? (paddingRight as number)
+                    : (paddingRight as number) / 2,
                   onDataPointClick,
                   scrollableDotHorizontalOffset
                 })}
@@ -970,7 +990,9 @@ class LineChart extends AbstractChart<LineChartProps, LineChartState> {
                   ...config,
                   data: data.datasets,
                   paddingTop,
-                  paddingRight
+                  paddingRight: withHorizontalLabels
+                    ? (paddingRight as number)
+                    : (paddingRight as number) / 2
                 })}
             </G>
           </G>
@@ -981,13 +1003,15 @@ class LineChart extends AbstractChart<LineChartProps, LineChartState> {
             contentContainerStyle={{ width: width * 2 }}
             showsHorizontalScrollIndicator={false}
             scrollEventThrottle={16}
-            onScroll={Animated.event([
-              {
-                nativeEvent: {
-                  contentOffset: { x: scrollableDotHorizontalOffset }
+            onScroll={Animated.event(
+              [
+                {
+                  nativeEvent: {
+                    contentOffset: { x: scrollableDotHorizontalOffset }
+                  }
                 }
-              }
-            ], { useNativeDriver: false }
+              ],
+              { useNativeDriver: false }
             )}
             horizontal
             bounces={false}

@@ -142,6 +142,15 @@ class PieChart extends AbstractChart<PieChartProps, PieChartState> {
               ...this.props.chartConfig
             })}
           </G>
+          {this.props.chartConfig.useBackgroundCanvas && (
+            <Rect
+              width="100%"
+              height={this.props.height}
+              rx={borderRadius}
+              ry={borderRadius}
+              fill="url(#backgroundGradient)"
+            />
+          )}
           <Rect
             width="100%"
             height={this.props.height}
