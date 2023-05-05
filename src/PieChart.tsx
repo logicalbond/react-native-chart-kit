@@ -161,6 +161,7 @@ class PieChart extends AbstractChart<PieChartProps, PieChartState> {
           <G
             x={
               this.props.width / 2 / 2 +
+              5 +
               Number(this.props.paddingLeft ? this.props.paddingLeft : 0)
             }
             y={this.props.height / 2}
