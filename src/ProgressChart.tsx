@@ -23,6 +23,7 @@ export interface ProgressChartProps extends AbstractChartProps {
   chartConfig?: AbstractChartConfig;
   hideLegend?: boolean;
   strokeWidth?: number;
+  strokeColor?: (opacity: number, index?: number) => string;
   radius?: number;
   withCustomBarColorFromData?: boolean;
 }
@@ -43,6 +44,7 @@ class ProgressChart extends AbstractChart<
       data,
       hideLegend,
       strokeWidth,
+      strokeColor,
       radius
     } = this.props;
 
@@ -203,6 +205,8 @@ class ProgressChart extends AbstractChart<
                     stroke={
                       this.props.withCustomBarColorFromData
                         ? withColor(i)
+                        : strokeColor
+                        ? strokeColor((i / pies.length) * 0.5 + 0.5, i)
                         : this.props.chartConfig.color(
                             (i / pies.length) * 0.5 + 0.5,
                             i

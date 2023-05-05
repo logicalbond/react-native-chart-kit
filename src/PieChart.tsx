@@ -17,6 +17,7 @@ export interface PieChartProps extends AbstractChartProps {
   hasLegend?: boolean;
   style?: Partial<ViewStyle>;
   avoidFalseZero?: boolean;
+  showValuesInsidePieces?: boolean;
 }
 
 type PieChartState = {};
@@ -28,7 +29,8 @@ class PieChart extends AbstractChart<PieChartProps, PieChartState> {
       backgroundColor,
       absolute = false,
       hasLegend = true,
-      avoidFalseZero = false
+      avoidFalseZero = false,
+      showValuesInsidePieces = false
     } = this.props;
 
     const { borderRadius = 0 } = style;
@@ -75,18 +77,20 @@ class PieChart extends AbstractChart<PieChartProps, PieChartState> {
             fill={c.item.color}
             stroke={c.item.color}
           />
-          <Text
-            textAnchor="start"
-            transform={
-              "translate(" +
-              c.sector.centroid[0] +
-              "," +
-              c.sector.centroid[1] +
-              ")"
-            }
-          >
-            {value.replace("%", "")}
-          </Text>
+          {showValuesInsidePieces && (
+            <Text
+              textAnchor="start"
+              transform={
+                "translate(" +
+                c.sector.centroid[0] +
+                "," +
+                c.sector.centroid[1] +
+                ")"
+              }
+            >
+              {value.replace("%", "")}
+            </Text>
+          )}
           {hasLegend ? (
             <Rect
               width="16px"

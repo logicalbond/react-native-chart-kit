@@ -22,6 +22,7 @@ export interface ProgressChartProps extends AbstractChartProps {
   chartConfig?: AbstractChartConfig;
   hideLegend?: boolean;
   strokeWidth?: number;
+  strokeColor?: (opacity: number, index?: number) => string;
   radius?: number;
   withCustomBarColorFromData?: boolean;
 }
