@@ -66,7 +66,7 @@ class ProgressChart extends AbstractChart<
       return Pie({
         r,
         R: r,
-        center: [0, 0],
+        center: [-10, 0],
         data: [pieData, 1 - pieData],
         accessor(x: string) {
           return x;
@@ -83,7 +83,7 @@ class ProgressChart extends AbstractChart<
       return Pie({
         r,
         R: r,
-        center: [0, 0],
+        center: [-10, 0],
         data: [0.999, 0.001],
         accessor(x: string) {
           return x;

@@ -187,7 +187,7 @@ class StackedBarChart extends AbstractChart<
 
   render() {
     const paddingTop = 15;
-    const paddingRight = 60;
+    const paddingRight = 55;
     const barWidth = 32 * this.getBarPercentage();
 
     const {
