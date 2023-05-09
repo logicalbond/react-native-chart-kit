@@ -533,19 +533,22 @@ class LineChart extends AbstractChart<LineChartProps, LineChartState> {
     return output;
   };
 
-  renderShadow = ({
-    width,
-    height,
-    paddingRight,
-    paddingTop,
-    data,
-    useColorFromDataset
-  }: Pick<
-    AbstractChartConfig,
-    "data" | "width" | "height" | "paddingRight" | "paddingTop"
-  > & {
-    useColorFromDataset: AbstractChartConfig["useShadowColorFromDataset"];
-  }) => {
+  renderShadow = (
+    {
+      width,
+      height,
+      paddingRight,
+      paddingTop,
+      data,
+      useColorFromDataset
+    }: Pick<
+      AbstractChartConfig,
+      "data" | "width" | "height" | "paddingRight" | "paddingTop"
+    > & {
+      useColorFromDataset: AbstractChartConfig["useShadowColorFromDataset"];
+    },
+    uniqueKey: string = null
+  ) => {
     if (this.props.bezier) {
       return this.renderBezierShadow({
         width,
@@ -584,7 +587,7 @@ class LineChart extends AbstractChart<LineChartProps, LineChartState> {
               paddingTop} ${paddingRight},${(height / 4) * 3 + paddingTop}`
           }
           fill={`url(#fillShadowGradientFrom${
-            useColorFromDataset ? `_${index}` : ""
+            useColorFromDataset ? `_${uniqueKey}_${index}` : ""
           })`}
           strokeWidth={0}
         />
@@ -734,19 +737,22 @@ class LineChart extends AbstractChart<LineChartProps, LineChartState> {
     });
   };
 
-  renderBezierShadow = ({
-    width,
-    height,
-    paddingRight,
-    paddingTop,
-    data,
-    useColorFromDataset
-  }: Pick<
-    AbstractChartConfig,
-    "data" | "width" | "height" | "paddingRight" | "paddingTop"
-  > & {
-    useColorFromDataset: AbstractChartConfig["useShadowColorFromDataset"];
-  }) =>
+  renderBezierShadow = (
+    {
+      width,
+      height,
+      paddingRight,
+      paddingTop,
+      data,
+      useColorFromDataset
+    }: Pick<
+      AbstractChartConfig,
+      "data" | "width" | "height" | "paddingRight" | "paddingTop"
+    > & {
+      useColorFromDataset: AbstractChartConfig["useShadowColorFromDataset"];
+    },
+    uniqueKey: string = null
+  ) =>
     data.map((dataset, index) => {
       const xMax = this.getXMaxValues(data);
       const d =
@@ -767,7 +773,7 @@ class LineChart extends AbstractChart<LineChartProps, LineChartState> {
           key={index}
           d={d}
           fill={`url(#fillShadowGradientFrom${
-            useColorFromDataset ? `_${index}` : ""
+            useColorFromDataset ? `_${uniqueKey}_${index}` : ""
           })`}
           strokeWidth={0}
         />
@@ -818,6 +824,8 @@ class LineChart extends AbstractChart<LineChartProps, LineChartState> {
       chartConfig
     } = this.props;
 
+    const uniqueKey = Math.random().toString();
+
     const { scrollableDotHorizontalOffset } = this.state;
     const { labels = [] } = data;
     const {
@@ -857,18 +865,21 @@ class LineChart extends AbstractChart<LineChartProps, LineChartState> {
               height={height + legendOffset}
               rx={borderRadius}
               ry={borderRadius}
-              fill="url(#backgroundGradient)"
+              fill={`url(#backgroundGradient_${uniqueKey})`}
               fillOpacity={transparent ? 0 : 1}
             />
           )}
           {this.props.data.legend &&
             this.renderLegend(config.width, legendOffset)}
           <G x="0" y={legendOffset}>
-            {this.renderDefs({
-              ...config,
-              ...chartConfig,
-              data: data.datasets
-            })}
+            {this.renderDefs(
+              {
+                ...config,
+                ...this.props.chartConfig,
+                data: data.datasets
+              },
+              uniqueKey
+            )}
             <G>
               {withHorizontalLines &&
                 (withInnerLines

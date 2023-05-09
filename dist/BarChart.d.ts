@@ -37,21 +37,24 @@ export interface BarChartProps extends AbstractChartProps {
 type BarChartState = {};
 declare class BarChart extends AbstractChart<BarChartProps, BarChartState> {
   getBarPercentage: () => number;
-  renderBars: ({
-    data,
-    width,
-    height,
-    paddingTop,
-    paddingRight,
-    barRadius,
-    withCustomBarColorFromData
-  }: Pick<
-    Omit<AbstractChartConfig, "data">,
-    "height" | "paddingRight" | "paddingTop" | "width" | "barRadius"
-  > & {
-    data: number[];
-    withCustomBarColorFromData: boolean;
-  }) => JSX.Element[];
+  renderBars: (
+    {
+      data,
+      width,
+      height,
+      paddingTop,
+      paddingRight,
+      barRadius,
+      withCustomBarColorFromData
+    }: Pick<
+      Omit<AbstractChartConfig, "data">,
+      "height" | "paddingRight" | "paddingTop" | "width" | "barRadius"
+    > & {
+      data: number[];
+      withCustomBarColorFromData: boolean;
+    },
+    uniqueKey?: string
+  ) => JSX.Element[];
   renderBarTops: ({
     data,
     width,

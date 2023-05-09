@@ -235,19 +235,22 @@ declare class LineChart extends AbstractChart<LineChartProps, LineChartState> {
     onDataPointClick: LineChartProps["onDataPointClick"];
     scrollableDotHorizontalOffset: Animated.Value;
   }) => any[];
-  renderShadow: ({
-    width,
-    height,
-    paddingRight,
-    paddingTop,
-    data,
-    useColorFromDataset
-  }: Pick<
-    AbstractChartConfig,
-    "height" | "paddingRight" | "paddingTop" | "width" | "data"
-  > & {
-    useColorFromDataset: AbstractChartConfig["useShadowColorFromDataset"];
-  }) => JSX.Element[];
+  renderShadow: (
+    {
+      width,
+      height,
+      paddingRight,
+      paddingTop,
+      data,
+      useColorFromDataset
+    }: Pick<
+      AbstractChartConfig,
+      "height" | "paddingRight" | "paddingTop" | "width" | "data"
+    > & {
+      useColorFromDataset: AbstractChartConfig["useShadowColorFromDataset"];
+    },
+    uniqueKey?: string
+  ) => JSX.Element[];
   renderLine: ({
     width,
     height,
@@ -283,19 +286,22 @@ declare class LineChart extends AbstractChart<LineChartProps, LineChartState> {
     AbstractChartConfig,
     "data" | "width" | "height" | "paddingRight" | "paddingTop"
   >) => JSX.Element[];
-  renderBezierShadow: ({
-    width,
-    height,
-    paddingRight,
-    paddingTop,
-    data,
-    useColorFromDataset
-  }: Pick<
-    AbstractChartConfig,
-    "height" | "paddingRight" | "paddingTop" | "width" | "data"
-  > & {
-    useColorFromDataset: AbstractChartConfig["useShadowColorFromDataset"];
-  }) => JSX.Element[];
+  renderBezierShadow: (
+    {
+      width,
+      height,
+      paddingRight,
+      paddingTop,
+      data,
+      useColorFromDataset
+    }: Pick<
+      AbstractChartConfig,
+      "height" | "paddingRight" | "paddingTop" | "width" | "data"
+    > & {
+      useColorFromDataset: AbstractChartConfig["useShadowColorFromDataset"];
+    },
+    uniqueKey?: string
+  ) => JSX.Element[];
   renderLegend: (width: any, legendOffset: any) => JSX.Element[];
   render(): JSX.Element;
 }

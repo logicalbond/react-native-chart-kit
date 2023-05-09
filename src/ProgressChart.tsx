@@ -48,6 +48,8 @@ class ProgressChart extends AbstractChart<
       radius
     } = this.props;
 
+    const uniqueKey = Math.random().toString();
+
     const { borderRadius = 0, margin = 0, marginRight = 0 } = style;
 
     if (Array.isArray(data)) {
@@ -167,18 +169,21 @@ class ProgressChart extends AbstractChart<
           width={width - (margin as number) * 2 - (marginRight as number)}
           height={height}
         >
-          {this.renderDefs({
-            width: this.props.height,
-            height: this.props.height,
-            ...this.props.chartConfig
-          })}
+          {this.renderDefs(
+            {
+              width: this.props.height,
+              height: this.props.height,
+              ...this.props.chartConfig
+            },
+            uniqueKey
+          )}
           {this.props.chartConfig.useBackgroundCanvas && (
             <Rect
               width="100%"
               height={this.props.height}
               rx={borderRadius}
               ry={borderRadius}
-              fill="url(#backgroundGradient)"
+              fill={`url(#backgroundGradient_${uniqueKey})`}
             />
           )}
           <G

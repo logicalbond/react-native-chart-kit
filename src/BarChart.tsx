@@ -56,21 +56,24 @@ class BarChart extends AbstractChart<BarChartProps, BarChartState> {
     return barPercentage;
   };
 
-  renderBars = ({
-    data,
-    width,
-    height,
-    paddingTop,
-    paddingRight,
-    barRadius,
-    withCustomBarColorFromData
-  }: Pick<
-    Omit<AbstractChartConfig, "data">,
-    "width" | "height" | "paddingRight" | "paddingTop" | "barRadius"
-  > & {
-    data: number[];
-    withCustomBarColorFromData: boolean;
-  }) => {
+  renderBars = (
+    {
+      data,
+      width,
+      height,
+      paddingTop,
+      paddingRight,
+      barRadius,
+      withCustomBarColorFromData
+    }: Pick<
+      Omit<AbstractChartConfig, "data">,
+      "width" | "height" | "paddingRight" | "paddingTop" | "barRadius"
+    > & {
+      data: number[];
+      withCustomBarColorFromData: boolean;
+    },
+    uniqueKey: string = null
+  ) => {
     const baseHeight = this.calcBaseHeight(data, height);
 
     return data.map((x, i) => {
@@ -90,7 +93,7 @@ class BarChart extends AbstractChart<BarChartProps, BarChartState> {
           fill={
             withCustomBarColorFromData
               ? `url(#customColor_0_${i})`
-              : "url(#fillShadowGradientFrom)"
+              : `url(#fillShadowGradientFrom_${uniqueKey})`
           }
         />
       );
@@ -222,6 +225,7 @@ class BarChart extends AbstractChart<BarChartProps, BarChartState> {
       segments = 4
     } = this.props;
 
+    const uniqueKey = Math.random().toString();
     const { borderRadius = 0, paddingTop = 16, paddingRight = 55 } = style;
 
     const config = {
@@ -248,10 +252,13 @@ class BarChart extends AbstractChart<BarChartProps, BarChartState> {
     return (
       <View style={style}>
         <Svg height={height} width={width}>
-          {this.renderDefs({
-            ...config,
-            ...this.props.chartConfig
-          })}
+          {this.renderDefs(
+            {
+              ...config,
+              ...this.props.chartConfig
+            },
+            uniqueKey
+          )}
           {this.renderColors({
             ...this.props.chartConfig,
             flatColor: flatColor,
@@ -263,7 +270,7 @@ class BarChart extends AbstractChart<BarChartProps, BarChartState> {
               height={height}
               rx={borderRadius}
               ry={borderRadius}
-              fill="url(#backgroundGradient)"
+              fill={`url(#backgroundGradient_${uniqueKey})`}
             />
           )}
           <G>
@@ -300,13 +307,18 @@ class BarChart extends AbstractChart<BarChartProps, BarChartState> {
               : null}
           </G>
           <G>
-            {this.renderBars({
-              ...config,
-              data: data.datasets[0].data,
-              paddingTop: paddingTop as number,
-              paddingRight: withHorizontalLabels ? (paddingRight as number) : 0,
-              withCustomBarColorFromData: withCustomBarColorFromData
-            })}
+            {this.renderBars(
+              {
+                ...config,
+                data: data.datasets[0].data,
+                paddingTop: paddingTop as number,
+                paddingRight: withHorizontalLabels
+                  ? (paddingRight as number)
+                  : 0,
+                withCustomBarColorFromData: withCustomBarColorFromData
+              },
+              uniqueKey
+            )}
           </G>
           <G>
             {showValuesOnTopOfBars &&

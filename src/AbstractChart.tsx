@@ -44,7 +44,9 @@ class AbstractChart<
 > extends Component<AbstractChartProps & IProps, AbstractChartState & IState> {
   calcScaler = (data: number[]) => {
     if (this.props.fromZero && this.props.fromNumber) {
-      return Math.max(...data, this.props.fromNumber) - Math.min(...data, 0) || 1;
+      return (
+        Math.max(...data, this.props.fromNumber) - Math.min(...data, 0) || 1
+      );
     } else if (this.props.fromZero) {
       return Math.max(...data, 0) - Math.min(...data, 0) || 1;
     } else if (this.props.fromNumber) {
@@ -404,7 +406,8 @@ class AbstractChart<
       | "fillShadowGradientTo"
       | "fillShadowGradientToOpacity"
       | "fillShadowGradientToOffset"
-    >
+    >,
+    uniqueKey: string = null
   ) => {
     const {
       width,
@@ -469,7 +472,7 @@ class AbstractChart<
     return (
       <Defs>
         <LinearGradient
-          id="backgroundGradient"
+          id={`backgroundGradient_${uniqueKey}`}
           x1={0}
           y1={height}
           x2={width}
@@ -490,7 +493,7 @@ class AbstractChart<
         {useShadowColorFromDataset ? (
           data.map((dataset, index) => (
             <LinearGradient
-              id={`fillShadowGradientFrom_${index}`}
+              id={`fillShadowGradientFrom_${uniqueKey}_${index}`}
               key={`${index}`}
               x1={0}
               y1={0}
@@ -518,7 +521,7 @@ class AbstractChart<
           ))
         ) : (
           <LinearGradient
-            id="fillShadowGradientFrom"
+            id={`fillShadowGradientFrom_${uniqueKey}`}
             x1={0}
             y1={0}
             x2={0}

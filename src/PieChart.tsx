@@ -24,6 +24,8 @@ type PieChartState = {};
 
 class PieChart extends AbstractChart<PieChartProps, PieChartState> {
   render() {
+    const uniqueKey = Math.random().toString();
+
     const {
       style = {},
       backgroundColor,
@@ -136,11 +138,14 @@ class PieChart extends AbstractChart<PieChartProps, PieChartState> {
       >
         <Svg width={this.props.width} height={this.props.height}>
           <G>
-            {this.renderDefs({
-              width: this.props.height,
-              height: this.props.height,
-              ...this.props.chartConfig
-            })}
+            {this.renderDefs(
+              {
+                width: this.props.height,
+                height: this.props.height,
+                ...this.props.chartConfig
+              },
+              uniqueKey
+            )}
           </G>
           {this.props.chartConfig.useBackgroundCanvas && (
             <Rect
@@ -148,7 +153,7 @@ class PieChart extends AbstractChart<PieChartProps, PieChartState> {
               height={this.props.height}
               rx={borderRadius}
               ry={borderRadius}
-              fill="url(#backgroundGradient)"
+              fill={`url(#backgroundGradient_${uniqueKey})`}
             />
           )}
           <Rect

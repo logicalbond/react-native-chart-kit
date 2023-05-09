@@ -166,7 +166,9 @@ class ContributionGraph extends AbstractChart<
         if (count) {
           const opacity = mapValue(
             count,
-            this.state.maxValue === this.state.minValue ? 0: this.state.minValue,
+            this.state.maxValue === this.state.minValue
+              ? 0
+              : this.state.minValue,
             isNaN(this.state.maxValue) ? 1 : this.state.maxValue,
             0.15 + 0.05, // + 0.05 to make smaller values a bit more visible
             1
@@ -367,6 +369,8 @@ class ContributionGraph extends AbstractChart<
   render() {
     const { style } = this.props;
 
+    const uniqueKey = Math.random().toString();
+
     let { borderRadius = 0 } = style;
 
     if (!borderRadius && this.props.chartConfig.style) {
@@ -377,17 +381,20 @@ class ContributionGraph extends AbstractChart<
     return (
       <View style={style}>
         <Svg height={this.props.height} width={this.props.width}>
-          {this.renderDefs({
-            width: this.props.width,
-            height: this.props.height,
-            ...this.props.chartConfig
-          })}
+          {this.renderDefs(
+            {
+              width: this.props.width,
+              height: this.props.height,
+              ...this.props.chartConfig
+            },
+            uniqueKey
+          )}
           <Rect
             width="100%"
             height={this.props.height}
             rx={borderRadius}
             ry={borderRadius}
-            fill="url(#backgroundGradient)"
+            fill={`url(#backgroundGradient_${uniqueKey})`}
           />
           <G>{this.renderMonthLabels()}</G>
           <G>{this.renderAllWeeks()}</G>

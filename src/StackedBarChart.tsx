@@ -207,6 +207,8 @@ class StackedBarChart extends AbstractChart<
       hideLegend = false
     } = this.props;
 
+    const uniqueKey = Math.random().toString();
+
     const { borderRadius = 0 } = style;
     const config = {
       width,
@@ -235,17 +237,20 @@ class StackedBarChart extends AbstractChart<
     return (
       <View style={style}>
         <Svg height={height} width={width}>
-          {this.renderDefs({
-            ...config,
-            ...this.props.chartConfig
-          })}
+          {this.renderDefs(
+            {
+              ...config,
+              ...this.props.chartConfig
+            },
+            uniqueKey
+          )}
           {this.props.chartConfig.useBackgroundCanvas && (
             <Rect
               width="100%"
               height={height}
               rx={borderRadius}
               ry={borderRadius}
-              fill="url(#backgroundGradient)"
+              fill={`url(#backgroundGradient_${uniqueKey})`}
             />
           )}
           <G>
