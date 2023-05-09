@@ -249,7 +249,7 @@ declare class LineChart extends AbstractChart<LineChartProps, LineChartState> {
     > & {
       useColorFromDataset: AbstractChartConfig["useShadowColorFromDataset"];
     },
-    uniqueKey?: string
+    uniqueKey: string
   ) => JSX.Element[];
   renderLine: ({
     width,
@@ -300,7 +300,7 @@ declare class LineChart extends AbstractChart<LineChartProps, LineChartState> {
     > & {
       useColorFromDataset: AbstractChartConfig["useShadowColorFromDataset"];
     },
-    uniqueKey?: string
+    uniqueKey: string
   ) => JSX.Element[];
   renderLegend: (width: any, legendOffset: any) => JSX.Element[];
   render(): JSX.Element;

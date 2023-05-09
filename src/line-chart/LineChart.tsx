@@ -547,17 +547,20 @@ class LineChart extends AbstractChart<LineChartProps, LineChartState> {
     > & {
       useColorFromDataset: AbstractChartConfig["useShadowColorFromDataset"];
     },
-    uniqueKey: string = null
+    uniqueKey: string
   ) => {
     if (this.props.bezier) {
-      return this.renderBezierShadow({
-        width,
-        height,
-        paddingRight,
-        paddingTop,
-        data,
-        useColorFromDataset
-      });
+      return this.renderBezierShadow(
+        {
+          width,
+          height,
+          paddingRight,
+          paddingTop,
+          data,
+          useColorFromDataset
+        },
+        uniqueKey
+      );
     }
 
     const datas = this.getDatas(data);
@@ -751,7 +754,7 @@ class LineChart extends AbstractChart<LineChartProps, LineChartState> {
     > & {
       useColorFromDataset: AbstractChartConfig["useShadowColorFromDataset"];
     },
-    uniqueKey: string = null
+    uniqueKey: string
   ) =>
     data.map((dataset, index) => {
       const xMax = this.getXMaxValues(data);
@@ -959,15 +962,18 @@ class LineChart extends AbstractChart<LineChartProps, LineChartState> {
             </G>
             <G>
               {withShadow &&
-                this.renderShadow({
-                  ...config,
-                  data: data.datasets,
-                  paddingRight: withHorizontalLabels
-                    ? (paddingRight as number)
-                    : 0,
-                  paddingTop: paddingTop as number,
-                  useColorFromDataset: chartConfig.useShadowColorFromDataset
-                })}
+                this.renderShadow(
+                  {
+                    ...config,
+                    data: data.datasets,
+                    paddingRight: withHorizontalLabels
+                      ? (paddingRight as number)
+                      : 0,
+                    paddingTop: paddingTop as number,
+                    useColorFromDataset: chartConfig.useShadowColorFromDataset
+                  },
+                  uniqueKey
+                )}
             </G>
             <G>
               {withDots &&

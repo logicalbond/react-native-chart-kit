@@ -502,7 +502,7 @@ declare class AbstractChart<
       | "fillShadowGradientToOpacity"
       | "fillShadowGradientToOffset"
     >,
-    uniqueKey?: string
+    uniqueKey: string
   ) => JSX.Element;
 }
 export default AbstractChart;

@@ -407,7 +407,7 @@ class AbstractChart<
       | "fillShadowGradientToOpacity"
       | "fillShadowGradientToOffset"
     >,
-    uniqueKey: string = null
+    uniqueKey: string
   ) => {
     const {
       width,

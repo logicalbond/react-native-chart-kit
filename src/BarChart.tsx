@@ -72,7 +72,7 @@ class BarChart extends AbstractChart<BarChartProps, BarChartState> {
       data: number[];
       withCustomBarColorFromData: boolean;
     },
-    uniqueKey: string = null
+    uniqueKey: string
   ) => {
     const baseHeight = this.calcBaseHeight(data, height);
 

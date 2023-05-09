@@ -53,7 +53,7 @@ declare class BarChart extends AbstractChart<BarChartProps, BarChartState> {
       data: number[];
       withCustomBarColorFromData: boolean;
     },
-    uniqueKey?: string
+    uniqueKey: string
   ) => JSX.Element[];
   renderBarTops: ({
     data,
