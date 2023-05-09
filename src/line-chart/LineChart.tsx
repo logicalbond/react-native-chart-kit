@@ -587,7 +587,7 @@ class LineChart extends AbstractChart<LineChartProps, LineChartState> {
               paddingTop} ${paddingRight},${(height / 4) * 3 + paddingTop}`
           }
           fill={`url(#fillShadowGradientFrom${
-            useColorFromDataset ? `_${uniqueKey}_${index}` : ""
+            useColorFromDataset ? `_${uniqueKey}_${index}` : `_${uniqueKey}`
           })`}
           strokeWidth={0}
         />
@@ -773,7 +773,7 @@ class LineChart extends AbstractChart<LineChartProps, LineChartState> {
           key={index}
           d={d}
           fill={`url(#fillShadowGradientFrom${
-            useColorFromDataset ? `_${uniqueKey}_${index}` : ""
+            useColorFromDataset ? `_${uniqueKey}_${index}` : `_${uniqueKey}`
           })`}
           strokeWidth={0}
         />
