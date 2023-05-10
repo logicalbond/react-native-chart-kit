@@ -126,8 +126,8 @@ class ProgressChart extends AbstractChart<
                   this.props.withCustomBarColorFromData
                     ? withColor(i)
                     : strokeColor
-                    ? strokeColor(0.5 * (i + 1), i)
-                    : this.props.chartConfig.color(0.5 * (i + 1), i)
+                    ? strokeColor((i / pies.length) * 0.5, i)
+                    : this.props.chartConfig.color((i / pies.length) * 0.5, i)
                 }
                 rx={8}
                 ry={8}
