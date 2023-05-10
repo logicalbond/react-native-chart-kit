@@ -59,17 +59,24 @@ class ProgressChart extends AbstractChart<
     }
 
     const pies = data.data.map((pieData, i) => {
-      const r =
-        ((height / 2 - 32) /
-          (Array.isArray(data) ? data.length : data.data.length)) *
-          i +
-        radius;
+      var r = 0;
+      var center = [0, 0];
+      var length = Array.isArray(data) ? data.length : data.data.length;
+      var pieDataValidated = pieData > 1 ? 1 : pieData;
+
+      if (length === 1) {
+        r = ((height / 2 - 32) / 2) * 1 + radius;
+        center = [0, 0];
+      } else {
+        r = ((height / 2 - 32) / length) * i + radius;
+        center = [-15, 0];
+      }
 
       return Pie({
         r,
         R: r,
-        center: [-10, 0],
-        data: [pieData, 1 - pieData],
+        center: center,
+        data: [pieDataValidated, 1 - pieDataValidated],
         accessor(x: string) {
           return x;
         }
@@ -77,15 +84,22 @@ class ProgressChart extends AbstractChart<
     });
 
     const pieBackgrounds = data.data.map((pieData, i) => {
-      const r =
-        ((height / 2 - 32) /
-          (Array.isArray(data) ? data.length : data.data.length)) *
-          i +
-        radius;
+      var r = 0;
+      var center = [0, 0];
+      var length = Array.isArray(data) ? data.length : data.data.length;
+
+      if (length === 1) {
+        r = ((height / 2 - 32) / 2) * 1 + radius;
+        center = [0, 0];
+      } else {
+        r = ((height / 2 - 32) / length) * i + radius;
+        center = [-15, 0];
+      }
+
       return Pie({
         r,
         R: r,
-        center: [-10, 0],
+        center: center,
         data: [0.999, 0.001],
         accessor(x: string) {
           return x;
@@ -112,12 +126,12 @@ class ProgressChart extends AbstractChart<
                   this.props.withCustomBarColorFromData
                     ? withColor(i)
                     : strokeColor
-                    ? strokeColor(0.7 * (i + 1), i)
-                    : this.props.chartConfig.color(0.7 * (i + 1), i)
+                    ? strokeColor(0.5 * (i + 1), i)
+                    : this.props.chartConfig.color(0.5 * (i + 1), i)
                 }
                 rx={8}
                 ry={8}
-                x={this.props.width / 2.5 - 24}
+                x={this.props.width / 2.5 - 30}
                 y={
                   -(this.props.height / 2.5) +
                   ((this.props.height * 0.8) /
@@ -134,7 +148,7 @@ class ProgressChart extends AbstractChart<
             return (
               <Text
                 key={Math.random()}
-                x={this.props.width / 2.5}
+                x={this.props.width / 2.5 - 10}
                 y={
                   -(this.props.height / 2.5) +
                   ((this.props.height * 0.8) /
@@ -145,9 +159,9 @@ class ProgressChart extends AbstractChart<
                 {...this.getPropsForLabels()}
               >
                 {withLabel(i)
-                  ? `${(data as any).labels[i]} ${Math.round(
-                      100 * (data as any).data[i]
-                    )}%`
+                  ? `${Math.round(100 * (data as any).data[i])}% ${
+                      (data as any).labels[i]
+                    }`
                   : `${Math.round(100 * (data as any).data[i])}%`}
               </Text>
             );
@@ -187,7 +201,7 @@ class ProgressChart extends AbstractChart<
             />
           )}
           <G
-            x={this.props.width / (hideLegend ? 2 : 2.5)}
+            x={this.props.width / (hideLegend || pies.length === 1 ? 2 : 2.5)}
             y={this.props.height / 2}
           >
             <G>
@@ -215,9 +229,9 @@ class ProgressChart extends AbstractChart<
                       this.props.withCustomBarColorFromData
                         ? withColor(i)
                         : strokeColor
-                        ? strokeColor((i / pies.length) * 0.7 + 0.5, i)
+                        ? strokeColor((i / pies.length) * 0.5, i)
                         : this.props.chartConfig.color(
-                            (i / pies.length) * 0.7 + 0.5,
+                            (i / pies.length) * 0.5,
                             i
                           )
                     }
@@ -225,7 +239,42 @@ class ProgressChart extends AbstractChart<
                 );
               })}
             </G>
-            {legend}
+            <G>
+              {pies.length === 1 &&
+                pies.map((pie, i) => {
+                  return (
+                    <G>
+                      <Text
+                        key={Math.random()}
+                        x={0}
+                        y={withLabel(i) ? -10 : 0}
+                        textAnchor={"middle"}
+                        alignmentBaseline={"middle"}
+                        strokeWidth={0.5}
+                        {...this.getPropsForLabels()}
+                        fontSize={22}
+                      >
+                        {`${Math.round(100 * (data as any).data[i])}%`}
+                      </Text>
+                      {withLabel(i) && (
+                        <Text
+                          key={Math.random()}
+                          x={0}
+                          y={20}
+                          textAnchor={"middle"}
+                          alignmentBaseline={"bottom"}
+                          strokeWidth={0.5}
+                          {...this.getPropsForLabels()}
+                          fontSize={16}
+                        >
+                          {(data as any).labels[i]}
+                        </Text>
+                      )}
+                    </G>
+                  );
+                })}
+            </G>
+            {pies.length > 1 && legend}
           </G>
         </Svg>
       </View>

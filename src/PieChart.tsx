@@ -100,7 +100,7 @@ class PieChart extends AbstractChart<PieChartProps, PieChartState> {
               fill={c.item.color}
               rx={8}
               ry={8}
-              x={this.props.width / 2.5 - 24}
+              x={this.props.width / 2.5 - 14}
               y={
                 -(this.props.height / 2.5) +
                 ((this.props.height * 0.8) / this.props.data.length) * i +
@@ -113,7 +113,7 @@ class PieChart extends AbstractChart<PieChartProps, PieChartState> {
               fill={c.item.legendFontColor}
               fontSize={c.item.legendFontSize}
               fontFamily={c.item.legendFontFamily}
-              x={this.props.width / 2.5}
+              x={this.props.width / 2.5 + 6}
               y={
                 -(this.props.height / 2.5) +
                 ((this.props.height * 0.8) / this.props.data.length) * i +
