@@ -253,6 +253,7 @@ class ProgressChart extends AbstractChart<
                         strokeWidth={0.5}
                         {...this.getPropsForLabels()}
                         fontSize={22}
+                        fontWeight={"bold"}
                       >
                         {`${Math.round(100 * (data as any).data[i])}%`}
                       </Text>
@@ -265,7 +266,7 @@ class ProgressChart extends AbstractChart<
                           alignmentBaseline={"bottom"}
                           strokeWidth={0.5}
                           {...this.getPropsForLabels()}
-                          fontSize={16}
+                          fontSize={14}
                         >
                           {(data as any).labels[i]}
                         </Text>
