@@ -115,7 +115,7 @@ class ProgressChart extends AbstractChart<
 
     const legend = !hideLegend && (
       <>
-        <G>
+        <G key={Math.random()}>
           {pies.map((_, i) => {
             return (
               <Rect
@@ -143,7 +143,7 @@ class ProgressChart extends AbstractChart<
             );
           })}
         </G>
-        <G>
+        <G key={Math.random()}>
           {pies.map((_, i) => {
             return (
               <Text
@@ -201,10 +201,11 @@ class ProgressChart extends AbstractChart<
             />
           )}
           <G
+            key={Math.random()}
             x={this.props.width / (hideLegend || pies.length === 1 ? 2 : 2.5)}
             y={this.props.height / 2}
           >
-            <G>
+            <G key={Math.random()}>
               {pieBackgrounds.map((pie, i) => {
                 return (
                   <Path
@@ -216,7 +217,7 @@ class ProgressChart extends AbstractChart<
                 );
               })}
             </G>
-            <G>
+            <G key={Math.random()}>
               {pies.map((pie, i) => {
                 return (
                   <Path
@@ -239,11 +240,11 @@ class ProgressChart extends AbstractChart<
                 );
               })}
             </G>
-            <G>
+            <G key={Math.random()}>
               {pies.length === 1 &&
                 pies.map((pie, i) => {
                   return (
-                    <G>
+                    <G key={Math.random()}>
                       <Text
                         key={Math.random()}
                         x={0}
