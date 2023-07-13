@@ -8,6 +8,7 @@ export interface AbstractChartProps {
   yAxisSuffix?: string;
   yLabelsOffset?: number;
   yAxisInterval?: number;
+  yAxisLabelInterval?: number;
   xAxisLabel?: string;
   xLabelsOffset?: number;
   hidePointsAtIndex?: number[];

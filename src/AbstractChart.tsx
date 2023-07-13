@@ -11,6 +11,7 @@ export interface AbstractChartProps {
   yAxisSuffix?: string;
   yLabelsOffset?: number;
   yAxisInterval?: number;
+  yAxisLabelInterval?: number;
   xAxisLabel?: string;
   xLabelsOffset?: number;
   hidePointsAtIndex?: number[];
@@ -269,7 +270,8 @@ class AbstractChart<
     const {
       xAxisLabel = "",
       xLabelsOffset = 0,
-      hidePointsAtIndex = []
+      hidePointsAtIndex = [],
+      yAxisLabelInterval = 1
     } = this.props;
 
     const fontSize = 12;
@@ -281,6 +283,10 @@ class AbstractChart<
 
     return labels.map((label, i) => {
       if (hidePointsAtIndex.includes(i)) {
+        return null;
+      }
+
+      if (i % yAxisLabelInterval) {
         return null;
       }
 
