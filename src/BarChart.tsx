@@ -226,7 +226,7 @@ class BarChart extends AbstractChart<BarChartProps, BarChartState> {
     } = this.props;
 
     const uniqueKey = Math.random().toString();
-    const { borderRadius = 0, paddingTop = 16, paddingRight = 55 } = style;
+    const { borderRadius = 0, paddingTop = 20, paddingRight = 55 } = style;
 
     const config = {
       width,
