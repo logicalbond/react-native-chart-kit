@@ -92,7 +92,7 @@ class AbstractChart<
   getPropsForBackgroundLines() {
     const { propsForBackgroundLines = {} } = this.props.chartConfig;
     return {
-      stroke: this.props.chartConfig.color(0.2),
+      stroke: this.props.chartConfig.color(0.1),
       strokeDasharray: "5, 10",
       strokeWidth: 1,
       ...propsForBackgroundLines

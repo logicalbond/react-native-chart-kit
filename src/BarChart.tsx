@@ -300,7 +300,7 @@ class BarChart extends AbstractChart<BarChartProps, BarChartState> {
                   labels: data.labels,
                   paddingRight: withHorizontalLabels
                     ? (paddingRight as number)
-                    : 0,
+                    : 20,
                   paddingTop: paddingTop as number,
                   horizontalOffset: (barWidth * this.getBarPercentage()) / 2
                 })
@@ -314,7 +314,7 @@ class BarChart extends AbstractChart<BarChartProps, BarChartState> {
                 paddingTop: paddingTop as number,
                 paddingRight: withHorizontalLabels
                   ? (paddingRight as number)
-                  : 0,
+                  : 20,
                 withCustomBarColorFromData: withCustomBarColorFromData
               },
               uniqueKey
@@ -328,7 +328,7 @@ class BarChart extends AbstractChart<BarChartProps, BarChartState> {
                 paddingTop: paddingTop as number,
                 paddingRight: withHorizontalLabels
                   ? (paddingRight as number)
-                  : 0
+                  : 20
               })}
           </G>
           <G>
@@ -339,7 +339,7 @@ class BarChart extends AbstractChart<BarChartProps, BarChartState> {
                 paddingTop: paddingTop as number,
                 paddingRight: withHorizontalLabels
                   ? (paddingRight as number)
-                  : 0
+                  : 20
               })}
           </G>
         </Svg>
