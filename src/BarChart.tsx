@@ -226,7 +226,7 @@ class BarChart extends AbstractChart<BarChartProps, BarChartState> {
     } = this.props;
 
     const uniqueKey = Math.random().toString();
-    const { borderRadius = 0, paddingTop = 20, paddingRight = 55 } = style;
+    const { borderRadius = 0, paddingTop = 20, paddingRight = 40 } = style;
 
     const config = {
       width,
@@ -278,7 +278,10 @@ class BarChart extends AbstractChart<BarChartProps, BarChartState> {
               ? this.renderHorizontalLines({
                   ...config,
                   count: segments,
-                  paddingTop
+                  paddingTop,
+                  paddingRight: withHorizontalLabels
+                    ? (paddingRight as number)
+                    : 0
                 })
               : null}
           </G>

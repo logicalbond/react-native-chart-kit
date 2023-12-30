@@ -834,7 +834,7 @@ class LineChart extends AbstractChart<LineChartProps, LineChartState> {
     const {
       borderRadius = 0,
       paddingTop = 16,
-      paddingRight = 55,
+      paddingRight = 40,
       margin = 0,
       marginRight = 0,
       paddingBottom = 0
@@ -945,7 +945,7 @@ class LineChart extends AbstractChart<LineChartProps, LineChartState> {
                   paddingTop: paddingTop as number,
                   paddingRight: withHorizontalLabels
                     ? (paddingRight as number)
-                    : 0,
+                    : 20,
                   formatXLabel
                 })}
             </G>
@@ -955,7 +955,7 @@ class LineChart extends AbstractChart<LineChartProps, LineChartState> {
                 ...chartConfig,
                 paddingRight: withHorizontalLabels
                   ? (paddingRight as number)
-                  : 0,
+                  : 20,
                 paddingTop: paddingTop as number,
                 data: data.datasets
               })}
@@ -968,7 +968,7 @@ class LineChart extends AbstractChart<LineChartProps, LineChartState> {
                     data: data.datasets,
                     paddingRight: withHorizontalLabels
                       ? (paddingRight as number)
-                      : 0,
+                      : 20,
                     paddingTop: paddingTop as number,
                     useColorFromDataset: chartConfig.useShadowColorFromDataset
                   },
@@ -983,7 +983,7 @@ class LineChart extends AbstractChart<LineChartProps, LineChartState> {
                   paddingTop: paddingTop as number,
                   paddingRight: withHorizontalLabels
                     ? (paddingRight as number)
-                    : 0,
+                    : 20,
                   onDataPointClick
                 })}
             </G>
@@ -996,7 +996,7 @@ class LineChart extends AbstractChart<LineChartProps, LineChartState> {
                   paddingTop: paddingTop as number,
                   paddingRight: withHorizontalLabels
                     ? (paddingRight as number)
-                    : 0,
+                    : 20,
                   onDataPointClick,
                   scrollableDotHorizontalOffset
                 })}
@@ -1009,7 +1009,7 @@ class LineChart extends AbstractChart<LineChartProps, LineChartState> {
                   paddingTop,
                   paddingRight: withHorizontalLabels
                     ? (paddingRight as number)
-                    : 0
+                    : 20
                 })}
             </G>
           </G>
