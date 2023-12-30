@@ -318,19 +318,19 @@ class LineChart extends AbstractChart<LineChartProps, LineChartState> {
                 ? getDotColor(x, i)
                 : this.getColor(dataset, 0.9)
             }
-            // onPress={onPress}
+            onPress={onPress}
             {...this.getPropsForDots(x, i)}
-          />
-          // <Circle
-          //   key={Math.random()}
-          //   cx={cx}
-          //   cy={cy}
-          //   r="14"
-          //   fill="#fff"
-          //   fillOpacity={0}
-          //   onPress={onPress}
-          // />,
-          // renderDotContent({ x: cx, y: cy, index: i, indexData: x })
+          />,
+          <Circle
+            key={Math.random()}
+            cx={cx}
+            cy={cy}
+            r="14"
+            fill="#fff"
+            fillOpacity={0}
+            onPress={onPress}
+          />,
+          renderDotContent({ x: cx, y: cy, index: i, indexData: x })
         );
       });
     });
